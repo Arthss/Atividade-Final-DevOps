@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "chart-todolist.fullname" . }}-ingress
+  namespace: api-todolist
+  annotations:
+    # Adicione suas anotações de Ingress aqui, se necessário
+spec:
+  rules:
+    - host: chart-todolist.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "chart-todolist.fullname" . }}-service
+                port:
+                  number: {{ .Values.service.port }}

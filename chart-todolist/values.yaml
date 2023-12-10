@@ -1,0 +1,27 @@
+# chart-todolist/values.yaml
+replicaCount: 2
+
+image:
+  repository: arthursilva3/api_todolist
+  tag: latest
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilization: 80
+
+service:
+  name: todolist-service
+  port: 80
+  targetPort: 8080
+  type: LoadBalancer
+
+serviceAccount:
+  create: true  # Define se deve criar uma conta de serviço
+
+ingress:
+  enabled: false  # Defina como true se estiver usando Ingress
+  hosts:
+    - host: chart-todolist.local
+      paths:
+        - /
